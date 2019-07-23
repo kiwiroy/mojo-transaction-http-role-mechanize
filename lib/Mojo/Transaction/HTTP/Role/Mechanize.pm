@@ -3,7 +3,7 @@ package Mojo::Transaction::HTTP::Role::Mechanize;
 use Mojo::Base -role;
 use Mojo::UserAgent::Transactor;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 requires qw{error};
 
@@ -43,7 +43,7 @@ sub submit {
 =begin html
 
 <a href="https://travis-ci.com/kiwiroy/mojo-transaction-http-role-mechanize">
-  <img src="https://travis-ci.com/kiwiroy/mojo-transaction-http-role-mechanize.svg?token=Kpqpmk91fYg5k9hdqK3y&branch=master">
+  <img src="https://travis-ci.com/kiwiroy/mojo-transaction-http-role-mechanize.svg?branch=master">
 </a>
 
 =end html
