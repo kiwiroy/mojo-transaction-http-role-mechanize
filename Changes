@@ -1,4 +1,8 @@
 Revision history for perl distribution Mojo-Transaction-HTTP-Role-Mechanize
 
+0.02 Not Released
+ - Declare dependencies correctly #1
+ - remove signatures for now #2
+
 0.01 2019-07-23T18:57:28+1200
  - Started project from mojolicious/mojo#1387

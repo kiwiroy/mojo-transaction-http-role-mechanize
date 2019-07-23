@@ -1,10 +1,11 @@
 package Mojo::DOM::Role::Form;
 
-use Mojo::Base -role, -signatures;
+use Mojo::Base -role;
 
 requires qw{ancestors at attr find matches selector tag val};
 
-sub target ($self, $submit = '') {
+sub target {
+  my ($self, $submit) = (shift, shift || '');
   return () if ($self->tag // '') ne 'form';
   return () unless defined($submit = $self->at($submit));
   return () if $submit->matches('[disabled]');
@@ -15,7 +16,8 @@ sub target ($self, $submit = '') {
   return $method, $action, $enctyp;
 }
 
-around val => sub ($orig, $self, @args) {
+around val => sub {
+  my ($orig, $self, @args) = @_;
   # "form"
   return {
     $self->find('button, checkbox, input, radio, select, textarea')
