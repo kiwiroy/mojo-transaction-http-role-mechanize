@@ -3,7 +3,7 @@ package Mojo::Transaction::HTTP::Role::Mechanize;
 use Mojo::Base -role;
 use Mojo::UserAgent::Transactor;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 requires qw{error};
 
