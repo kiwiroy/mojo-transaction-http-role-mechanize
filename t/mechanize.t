@@ -48,23 +48,28 @@ my $submit_tx = $tx->submit();
 $ua->start($submit_tx);
 is_deeply $submit_tx->res->json, \%exp, 'expected response, no button';
 
-my $submit_tx = $tx->submit('#submit-form-1');
+$submit_tx = $tx->submit('#submit-form-1');
 $ua->start($submit_tx);
-is_deeply $submit_tx->res->json, {%exp, p => 'P1'}, 'expected response, button 1';
+delete $exp{o}; # remove - not clicking this button
+is_deeply $submit_tx->res->json, {%exp, p => ['P0', 'P1']},
+  'expected response, button 1';
 
-my $submit_tx = $tx->submit('#submit-form-2');
+$submit_tx = $tx->submit('#submit-form-2');
 $ua->start($submit_tx);
-is_deeply $submit_tx->res->json, {%exp, p => 'P2'}, 'expected response, button 2';
+is_deeply $submit_tx->res->json, {%exp, p => ['P0', 'P2']},
+  'expected response, button 2';
 
 $submit_tx = $tx->submit('#submit-form-1', a => 'Z', o => 'L', foo => 'bar');
 $ua->start($submit_tx);
-is_deeply $submit_tx->res->json, {%exp, a => 'Z', o => 'L', p => 'P1'},
+is_deeply $submit_tx->res->json, {%exp, a => 'Z', p => ['P0', 'P1']},
   'expected response - foo not included';
 
+$exp{o} = 'O'; # add back - this is the default button
 $submit_tx = $tx->submit(a => 'X', 'm' => 'on');
 ok $submit_tx;
 $ua->start($submit_tx);
-is_deeply $submit_tx->res->json, {%exp, 'a' => 'X', 'm' => 'on'}, 'expected response';
+is_deeply $submit_tx->res->json, {%exp, 'a' => 'X', 'm' => 'on'},
+  'expected response';
 
 my $json = {};
 $ua->get_p('/')->then(sub {

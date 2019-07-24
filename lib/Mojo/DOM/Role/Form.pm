@@ -19,7 +19,7 @@ sub target {
 around val => sub {
   my ($orig, $self, @args) = @_;
   # "form"
-  return {
+  return
     $self->find('button, checkbox, input, radio, select, textarea')
       ->map(sub {
         my $is_image = !!$_->matches('input[type=image]');
@@ -32,11 +32,23 @@ around val => sub {
         # client only buttons ignored
         return () if _form_element_client_only_button($_);
         # simply return name => value for all but image types
-        return $name => $_->val() unless $is_image;
+        return [$name => $_->val()] unless $is_image;
         # synthesize image click
         return _form_image_click($_, $name);
-      }, $args[0] || _form_default_submit($self))->each,
-  } if (my $tag = $self->tag) eq 'form';
+      }, $args[0] || _form_default_submit($self))
+      ->tap(sub {
+        $_->each( sub {
+          # Test::More::diag "@$_ ", @args ? @args : ();
+        });
+      })
+      ->reduce(sub {
+        my ($key, $value) = @$b;
+        $a->{$key} = defined $a->{$key} && defined($value)
+          ? [ ref($a->{$key}) ? (@{$a->{$key}}, $value) : ($a->{$key}, $value) ]
+          : $value;
+        $a
+      }, {})
+  if (my $tag = $self->tag) eq 'form';
 
   # "option"
   return $self->{value} // $self->text if $tag eq 'option';
@@ -101,9 +113,9 @@ sub _form_image_click {
   my ($self, $name) = (shift, shift);
   my ($x, $y) = map { int(rand($self->attr($_) || 1)) + 1 } qw{width height};
   # x and y if no name
-  return (x => $x, y => $y) unless $name;
+  return ([x => $x], [y => $y]) unless $name;
   # named x and y, with name
-  return ("$name.x" => $x, "$name.y" => $y);
+  return (["$name.x" => $x], ["$name.y" => $y]);
 }
 
 1;

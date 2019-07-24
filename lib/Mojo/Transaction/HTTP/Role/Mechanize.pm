@@ -24,7 +24,7 @@ sub submit {
   $target = $self->req->url->new($target);
   $target = $target->to_abs($self->req->url) unless $target->is_abs;
   # values from form
-  my $state = $form->val;
+  my $state = $form->val($any ne $selector ? $selector : ());
   # merge in new values of form elements
   my @keys = grep { exists $overlay->{$_} } keys %$state;
   @$state{@keys} = @$overlay{@keys};
