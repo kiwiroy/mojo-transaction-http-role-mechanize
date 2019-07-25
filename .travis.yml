@@ -9,3 +9,11 @@ perl:
 cache:
   directories:
     - $HOME/perl5
+
+env:
+  global:
+    - HARNESS_OPTIONS=j5
+
+sudo: false
+notifications:
+  email: false
