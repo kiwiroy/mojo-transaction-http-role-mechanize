@@ -1,6 +1,8 @@
 Revision history for perl distribution Mojo-Transaction-HTTP-Role-Mechanize
 
 0.03 Not Released
+ - Ensure inputs with different type, but same name are included #3
+ - Unify the way default buttons are used
 
 0.02 2019-07-24T11:05:55+1200
  - Declare dependencies correctly #1

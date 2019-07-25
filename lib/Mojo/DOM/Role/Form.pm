@@ -5,9 +5,10 @@ use Mojo::Base -role;
 requires qw{ancestors at attr find matches selector tag val};
 
 sub target {
-  my ($self, $submit) = (shift, shift || '');
+  my ($self, $submit) = (shift, shift);
   return () if ($self->tag // '') ne 'form';
-  return () unless defined($submit = $self->at($submit));
+  return ()
+    unless defined($submit = $self->at($submit || _form_default_submit($self)));
   return () if $submit->matches('[disabled]');
   my $method = uc($submit->attr('formmethod') || $self->attr('method') || 'GET');
   my $action = $submit->attr('formaction') || $self->attr('action') || '#';
@@ -36,11 +37,6 @@ around val => sub {
         # synthesize image click
         return _form_image_click($_, $name);
       }, $args[0] || _form_default_submit($self))
-      ->tap(sub {
-        $_->each( sub {
-          # Test::More::diag "@$_ ", @args ? @args : ();
-        });
-      })
       ->reduce(sub {
         my ($key, $value) = @$b;
         $a->{$key} = defined $a->{$key} && defined($value)
@@ -82,10 +78,10 @@ sub _form_default_submit {
     # only the first continues, save some cycles
     ->tap(sub { splice @$_, 1; })
     ->map(sub {
-      $_->selector;
-      # get the selector and relativise to form - not req
-      # (my $s = $_->selector) =~ s/^.*form[^\s]*\s>\s//;
-      # return $s;
+      # $_->selector;
+      # get the selector and relativise to form
+      (my $s = $_->selector) =~ s/^.*form[^>]*>\s//;
+      return $s;
     })->first || '';
 }
 

@@ -19,12 +19,14 @@ sub submit {
   # compose ...
   $form->with_roles('Mojo::DOM::Role::Form')
     unless Role::Tiny::does_role($form, 'Mojo::DOM::Role::Form');
+  # now there is a form, rely on _form_default_submit() if we relied on $any b4.
+  $selector = undef if $any eq $selector;
   return unless (my ($method, $target, $type) =
     $form->target($selector));
   $target = $self->req->url->new($target);
   $target = $target->to_abs($self->req->url) unless $target->is_abs;
   # values from form
-  my $state = $form->val($any ne $selector ? $selector : ());
+  my $state = $form->val($selector);
   # merge in new values of form elements
   my @keys = grep { exists $overlay->{$_} } keys %$state;
   @$state{@keys} = @$overlay{@keys};
