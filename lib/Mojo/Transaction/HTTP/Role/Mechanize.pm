@@ -94,6 +94,10 @@ C<$id> and merged values.
 
 kiwiroy - Roy Storey <kiwiroy@cpan.org>
 
+=head1 CONTRIBUTORS
+
+tekki - Rolf Stöckli <tekki@cpan.org>
+
 =head1 LICENSE
 
 This library is free software and may be distributed under the same terms as
