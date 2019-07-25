@@ -19,7 +19,8 @@ my %WriteMakefileArgs = (
   PREREQ_PM      => {
   'Class::Method::Modifiers' => '2.00',
   'Mojolicious' => '8.10',
-  'Role::Tiny' => '2.000001'
+  'Role::Tiny' => '2.000001',
+  'perl' => 'v5.10.0'
 }
 ,
   META_MERGE     => {

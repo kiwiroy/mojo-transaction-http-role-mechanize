@@ -1,4 +1,5 @@
 # -*- mode: perl; -*-
+requires 'perl' => '5.10.0';
 # requires 'perl' => '5.24.1'; # see issues#2
 requires 'Class::Method::Modifiers' => '2.00';
 requires 'Mojolicious' => '8.10';
