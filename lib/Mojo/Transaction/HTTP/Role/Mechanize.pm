@@ -79,16 +79,22 @@ L<Mojo::Transaction::HTTP>.
 
 =head1 METHODS
 
-L<Mojo::Transaction::HTTP::Role::Mechanize> implements the following methods.
+L<Mojo::Transaction::HTTP::Role::Mechanize> implements the following method.
 
 =head2 submit
 
-  # result
+  # result using selector
   $submit_tx = $tx->submit('#id', username => 'fry');
+  # result without selector using default submission
+  $submit_tx = $tx->submit(username => 'fry');
+  # passing hash, rather than list, of values
+  $submit_tx = $tx->submit({username => 'fry'});
 
 Build a new L<Mojo::Transaction::HTTP> object with
 L<Mojo::UserAgent::Transactor/"tx"> and the contents of the C<form> with the
-C<$id> and merged values.
+C<$id> and merged values.  If no selector is given, the first non-disabled
+button or appropriate input element (of type button, submit, or image)
+will be used for the submission.
 
 =head1 AUTHOR
 
