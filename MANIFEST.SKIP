@@ -68,3 +68,7 @@
 ^local/
 ^MANIFEST\.SKIP
 ^README\.pod
+^\.github/.*$
+^\.proverc$
+^\.ship\.conf$
+^\.travis\.yml$
