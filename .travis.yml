@@ -17,3 +17,10 @@ env:
 sudo: false
 notifications:
   email: false
+
+install:
+  - cpanm -n --quiet --installdeps --with-develop .
+
+after_success:
+  - cover -test -report coveralls
+  - cover -test -report kritika

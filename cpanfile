@@ -5,3 +5,12 @@ requires 'Mojolicious' => '8.10';
 requires 'Role::Tiny' => '2.000001';
 
 test_requires 'Test::More' => '0.80';
+
+on develop => sub {
+  requires 'Devel::Cover' => 0;
+  requires 'Test::Pod' => 0;
+  requires 'Test::Pod::Coverage' => 0;
+  requires 'Test::CPAN::Changes' => 0;
+  requires 'Devel::Cover::Report::Coveralls' => '0.11';
+  requires 'Devel::Cover::Report::Kritika' => '0.05';
+};

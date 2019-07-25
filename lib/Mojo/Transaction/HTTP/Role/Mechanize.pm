@@ -45,7 +45,18 @@ sub submit {
 =begin html
 
 <a href="https://travis-ci.com/kiwiroy/mojo-transaction-http-role-mechanize">
-  <img src="https://travis-ci.com/kiwiroy/mojo-transaction-http-role-mechanize.svg?branch=master">
+  <img alt="Travis Build Status"
+       src="https://travis-ci.com/kiwiroy/mojo-transaction-http-role-mechanize.svg?branch=master" />
+</a>
+
+<a href="https://kritika.io/users/kiwiroy/repos/7509235145731088/heads/master/">
+  <img alt="Kritika Analysis Status"
+       src="https://kritika.io/users/kiwiroy/repos/7509235145731088/heads/master/status.svg?type=score%2Bcoverage%2Bdeps" />
+</a>
+
+<a href="https://coveralls.io/github/kiwiroy/mojo-transaction-http-role-mechanize?branch=master">
+  <img alt="Coverage Status"
+       src="https://coveralls.io/repos/github/kiwiroy/mojo-transaction-http-role-mechanize/badge.svg?branch=master" />
 </a>
 
 =end html
