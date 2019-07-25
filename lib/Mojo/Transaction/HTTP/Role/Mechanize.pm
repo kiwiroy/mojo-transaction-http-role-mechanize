@@ -8,19 +8,20 @@ our $VERSION = '0.03';
 requires qw{error};
 
 sub submit {
-  my $any = 'button:not([disabled]), input:matches([type=button],'
-	    . ' [type=submit], [type=image]):not([disabled])';
-  my ($self, $selector, $overlay) = (shift, (@_ % 2 ? shift : $any, {@_}));
+  my ($self, $selector, $overlay) = (shift);
+  $overlay   = pop if @_ && ref($_[-1]) eq 'HASH';
+  $selector  = shift if @_ % 2;
+  $overlay ||= { @_ };
   # cannot continue from error state
   return if $self->error;
   # form from selector
   return unless defined(my $form = $self->res->dom->find('form')
-    ->grep(sub { $_->at($selector) })->first);
+    ->grep(sub { $_->at($selector || '') })->first);
   # compose ...
   $form->with_roles('Mojo::DOM::Role::Form')
     unless Role::Tiny::does_role($form, 'Mojo::DOM::Role::Form');
-  # now there is a form, rely on _form_default_submit() if we relied on $any b4.
-  $selector = undef if $any eq $selector;
+  # # now there is a form, rely on _form_default_submit() if we relied on $any b4.
+  # $selector = undef if $any eq $selector;
   return unless (my ($method, $target, $type) =
     $form->target($selector));
   $target = $self->req->url->new($target);
@@ -89,6 +90,8 @@ L<Mojo::Transaction::HTTP::Role::Mechanize> implements the following method.
   $submit_tx = $tx->submit(username => 'fry');
   # passing hash, rather than list, of values
   $submit_tx = $tx->submit({username => 'fry'});
+  # passing hash, rather than list, of values and a selector
+  $submit_tx = $tx->submit('#id', {username => 'fry'});
 
 Build a new L<Mojo::Transaction::HTTP> object with
 L<Mojo::UserAgent::Transactor/"tx"> and the contents of the C<form> with the
@@ -98,11 +101,13 @@ will be used for the submission.
 
 =head1 AUTHOR
 
-kiwiroy - Roy Storey <kiwiroy@cpan.org>
+kiwiroy - Roy Storey C<kiwiroy@cpan.org>
 
 =head1 CONTRIBUTORS
 
-tekki - Rolf Stöckli <tekki@cpan.org>
+tekki - Rolf Stöckli C<tekki@cpan.org>
+
+lindleyw - William Lindley C<wlindley+remove+this@wlindley.com>
 
 =head1 LICENSE
 
