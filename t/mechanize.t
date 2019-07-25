@@ -64,8 +64,19 @@ $ua->start($submit_tx);
 is_deeply $submit_tx->res->json, {%exp, a => 'Z', p => ['P0', 'P1']},
   'expected response - foo not included';
 
+$submit_tx = $tx->submit('#submit-form-1', {a => 'Z', o => 'L', foo => 'bar'});
+$ua->start($submit_tx);
+is_deeply $submit_tx->res->json, {%exp, a => 'Z', p => ['P0', 'P1']},
+  'expected response - foo not included';
+
 $exp{o} = 'O'; # add back - this is the default button
 $submit_tx = $tx->submit(a => 'X', 'm' => 'on');
+ok $submit_tx;
+$ua->start($submit_tx);
+is_deeply $submit_tx->res->json, {%exp, 'a' => 'X', 'm' => 'on'},
+  'expected response';
+
+$submit_tx = $tx->submit({a => 'X', 'm' => 'on'});
 ok $submit_tx;
 $ua->start($submit_tx);
 is_deeply $submit_tx->res->json, {%exp, 'a' => 'X', 'm' => 'on'},
