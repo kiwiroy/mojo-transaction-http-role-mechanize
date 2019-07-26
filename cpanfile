@@ -8,6 +8,7 @@ test_requires 'Test::More' => '0.80';
 
 on develop => sub {
   requires 'Devel::Cover' => 0;
+  requires 'IO::Socket::SSL' => '2.009';
   requires 'Test::Pod' => 0;
   requires 'Test::Pod::Coverage' => 0;
   requires 'Test::CPAN::Changes' => 0;

@@ -1,7 +1,8 @@
 use Mojo::Base -strict;
 
 BEGIN {
-  $ENV{MOJO_NO_NNR}  = $ENV{MOJO_NO_SOCKS} = $ENV{MOJO_NO_TLS} = 1;
+  $ENV{MOJO_NO_NNR}  = $ENV{MOJO_NO_SOCKS} = 1;
+  $ENV{MOJO_NO_TLS}  = !$ENV{CI};
   $ENV{MOJO_REACTOR} = 'Mojo::Reactor::Poll';
 }
 
@@ -16,12 +17,18 @@ get '/' => sub {
   my $c = shift;
   $c->render(template => 'index');
 };
-
+get '/fail' => sub {
+  my $c = shift;
+  $c->rendered(501);
+};
 get '/foo' => sub {
   my $c = shift;
   $c->render(json => $c->req->query_params->to_hash);
 };
-
+get '/metacpan' => sub {
+  my $c = shift;
+  $c->render(template => 'metacpan-form');
+};
 my $ua = new_ok 'Mojo::UserAgent';
 my $tx = $ua->get('/')->with_roles('+Mechanize');
 ok $tx->does('Mojo::Transaction::HTTP::Role::Mechanize'), 'obj compose';
@@ -97,6 +104,18 @@ $ua->get_p('/')->then(sub {
 
 is_deeply $json, {%exp, a => 'x'}, 'expected response';
 
+if ($ENV{CI}) {
+  $tx = $ua->get('/metacpan')->with_roles('+Mechanize');
+  $submit_tx = $tx->submit(q => 'Mojolicious', size => 1);
+  $ua->start($submit_tx);
+  is $submit_tx->res->dom->find('a[href]')
+    ->first(sub { $_->attr('href') eq '/pod/Mojolicious' })
+    ->text, 'Mojolicious', 'match';
+}
+
+# error
+$tx = $ua->get('/fail')->with_roles('+Mechanize');
+is $tx->submit, undef, 'no way to continue';
 done_testing;
 
 __DATA__
@@ -145,6 +164,17 @@ __DATA__
     <button type=button name="oooh" value="Arrh">No!</button>
   </form>
 </div>
+@@ metacpan-form.html.ep
+<h1>A small form</h1>
+<form action="https://metacpan.org/search" method="GET" >
+  <input type="hidden" name="size" id="search-size" value="100">
+  <div class="form-group">
+    <input type="text" name="q" size="41" />
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn search-btn">Search the CPAN</button>
+  </div>
+</form>
 @@ layouts/default.html.ep
 <!DOCTYPE html>
 <html>

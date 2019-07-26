@@ -189,4 +189,18 @@ EOF
 is_deeply $dom->at('form')->val, {enter => 'user'}, 'no submit button';
 is_deeply [$dom->at('form')->target], [qw{GET /form url-encoded}], 'no submit';
 
+$dom = Mojo::DOM->with_roles('+Form')->new(<<'EOF');
+<div>
+  <form>
+    <input type=submit formaction="/" formmethod="POST" formenctype="multipart">
+    <input type=submit id="no-action" formmethod="POST" formenctype="multipart">
+  </form>
+</div>
+EOF
+is $dom->target, undef, 'not a form';
+is $dom->at('form')->target('great'), undef, 'not in the form';
+is_deeply [$dom->at('form')->target], [qw{POST / multipart}], 'target';
+is_deeply [$dom->at('form')->target('#no-action')], ['POST', '#', 'multipart'],
+  'target';
+
 done_testing;
