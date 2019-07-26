@@ -1,6 +1,7 @@
 <div>
     <a href="https://travis-ci.com/kiwiroy/mojo-transaction-http-role-mechanize">
-      <img alt="Travis Build Status" src="https://travis-ci.com/kiwiroy/mojo-transaction-http-role-mechanize.svg?branch=master" />
+      <img alt="Travis Build Status"
+           src="https://travis-ci.com/kiwiroy/mojo-transaction-http-role-mechanize.svg?branch=master" />
     </a>
     <a href="https://kritika.io/users/kiwiroy/repos/7509235145731088/heads/master/">
       <img alt="Kritika Analysis Status"
@@ -30,24 +31,34 @@ Mojo::Transaction::HTTP::Role::Mechanize - Mechanize Mojo a little
 
 # METHODS
 
-[Mojo::Transaction::HTTP::Role::Mechanize](https://metacpan.org/pod/Mojo::Transaction::HTTP::Role::Mechanize) implements the following methods.
+[Mojo::Transaction::HTTP::Role::Mechanize](https://metacpan.org/pod/Mojo::Transaction::HTTP::Role::Mechanize) implements the following method.
 
 ## submit
 
-    # result
+    # result using selector
     $submit_tx = $tx->submit('#id', username => 'fry');
+    # result without selector using default submission
+    $submit_tx = $tx->submit(username => 'fry');
+    # passing hash, rather than list, of values
+    $submit_tx = $tx->submit({username => 'fry'});
+    # passing hash, rather than list, of values and a selector
+    $submit_tx = $tx->submit('#id', {username => 'fry'});
 
 Build a new [Mojo::Transaction::HTTP](https://metacpan.org/pod/Mojo::Transaction::HTTP) object with
 ["tx" in Mojo::UserAgent::Transactor](https://metacpan.org/pod/Mojo::UserAgent::Transactor#tx) and the contents of the `form` with the
-`$id` and merged values.
+`$id` and merged values.  If no selector is given, the first non-disabled
+button or appropriate input element (of type button, submit, or image)
+will be used for the submission.
 
 # AUTHOR
 
-kiwiroy - Roy Storey <kiwiroy@cpan.org>
+kiwiroy - Roy Storey `kiwiroy@cpan.org`
 
 # CONTRIBUTORS
 
-tekki - Rolf Stöckli <tekki@cpan.org>
+tekki - Rolf Stöckli `tekki@cpan.org`
+
+lindleyw - William Lindley `wlindley+remove+this@wlindley.com`
 
 # LICENSE
 
