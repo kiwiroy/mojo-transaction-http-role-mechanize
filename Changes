@@ -1,6 +1,7 @@
 Revision history for perl distribution Mojo-Transaction-HTTP-Role-Mechanize
 
 0.05 Not Released
+ - added extract_forms method #7
 
 0.04 2019-07-26T23:26:42+1200
  - tx->submit accept list and hash #5, #6

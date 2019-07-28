@@ -5,7 +5,7 @@ use Mojo::UserAgent::Transactor;
 
 our $VERSION = '0.05';
 
-requires qw{error};
+requires qw{error res};
 
 sub extract_forms {
   my $self = shift;
@@ -64,6 +64,10 @@ sub submit {
 <a href="https://coveralls.io/github/kiwiroy/mojo-transaction-http-role-mechanize?branch=master">
   <img alt="Coverage Status"
        src="https://coveralls.io/repos/github/kiwiroy/mojo-transaction-http-role-mechanize/badge.svg?branch=master" />
+</a>
+<a href="https://badge.fury.io/pl/Mojo-Transaction-HTTP-Role-Mechanize">
+  <img alt="CPAN version" height="18"
+       src="https://badge.fury.io/pl/Mojo-Transaction-HTTP-Role-Mechanize.svg" />
 </a>
 
 =end html
