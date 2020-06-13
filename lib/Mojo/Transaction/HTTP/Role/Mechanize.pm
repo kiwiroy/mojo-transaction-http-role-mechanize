@@ -133,8 +133,6 @@ will be used for the submission.
 
 kiwiroy - Roy Storey C<kiwiroy@cpan.org>
 
-=head1 CONTRIBUTORS
-
 tekki - Rolf Stöckli C<tekki@cpan.org>
 
 lindleyw - William Lindley C<wlindley+remove+this@wlindley.com>
