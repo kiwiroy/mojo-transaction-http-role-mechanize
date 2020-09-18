@@ -86,7 +86,7 @@ sub _form_default_submit {
 }
 
 sub _form_element_client_only_button {
-  my $s = 'input[type=button], button:matches([type=button], [type=reset])';
+  my $s = 'input[type=button], button[type=button], button[type=reset]';
   return !!$_[0]->matches($s);
 }
 
@@ -100,7 +100,7 @@ sub _form_element_disabled {
 sub _form_element_submits {
   my $s = join ', ', 'button:not([type=button], [type=reset])',
     'button', # submit is the default
-    'input:matches([type=submit], [type=image])';
+    'input[type=submit]', 'input[type=image]';
   return 1 if $_[0]->matches($s) && !_form_element_disabled($_[0]);
   return 0;
 }
