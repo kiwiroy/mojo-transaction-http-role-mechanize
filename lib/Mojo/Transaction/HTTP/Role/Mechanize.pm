@@ -53,10 +53,12 @@ sub submit {
 
 =begin html
 
-<a href="https://travis-ci.com/kiwiroy/mojo-transaction-http-role-mechanize">
-  <img alt="Travis Build Status"
-       src="https://travis-ci.com/kiwiroy/mojo-transaction-http-role-mechanize.svg?branch=master" />
-</a>
+<img alt="linux"
+     src="https://github.com/kiwiroy/mojo-transaction-http-role-mechanize/workflows/linux/badge.svg" />
+<img alt="macos"
+    src="https://github.com/kiwiroy/mojo-transaction-http-role-mechanize/workflows/macos/badge.svg" />
+<img alt="windows"
+     src="https://github.com/kiwiroy/mojo-transaction-http-role-mechanize/workflows/windows/badge.svg" />
 <a href="https://kritika.io/users/kiwiroy/repos/7509235145731088/heads/master/">
   <img alt="Kritika Analysis Status"
        src="https://kritika.io/users/kiwiroy/repos/7509235145731088/heads/master/status.svg?type=score%2Bcoverage%2Bdeps" />
