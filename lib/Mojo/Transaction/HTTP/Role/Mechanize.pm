@@ -44,7 +44,7 @@ sub submit {
   return Mojo::UserAgent::Transactor->new->tx(
     $method => $target,
     {}, form => $state
-  );
+  )->previous($self);
 }
 
 1;
