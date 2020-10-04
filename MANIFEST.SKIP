@@ -68,7 +68,10 @@
 ^local/
 ^MANIFEST\.SKIP
 ^README\.pod
+^\.gitattributes$
 ^\.github/.*$
+^\.perltidyrc$
 ^\.proverc$
 ^\.ship\.conf$
 ^\.travis\.yml$
+^cpanfile\.snapshot$

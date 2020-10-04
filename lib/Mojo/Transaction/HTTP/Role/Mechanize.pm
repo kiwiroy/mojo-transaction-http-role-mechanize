@@ -53,11 +53,11 @@ sub submit {
 
 =begin html
 
-<img alt="linux"
+<img alt="Build Status - Linux"
      src="https://github.com/kiwiroy/mojo-transaction-http-role-mechanize/workflows/linux/badge.svg" />
-<img alt="macos"
+<img alt="Build Status - Macos"
     src="https://github.com/kiwiroy/mojo-transaction-http-role-mechanize/workflows/macos/badge.svg" />
-<img alt="windows"
+<img alt="Build Status - Windows"
      src="https://github.com/kiwiroy/mojo-transaction-http-role-mechanize/workflows/windows/badge.svg" />
 <a href="https://kritika.io/users/kiwiroy/repos/7509235145731088/heads/master/">
   <img alt="Kritika Analysis Status"
@@ -68,7 +68,7 @@ sub submit {
        src="https://coveralls.io/repos/github/kiwiroy/mojo-transaction-http-role-mechanize/badge.svg?branch=master" />
 </a>
 <a href="https://badge.fury.io/pl/Mojo-Transaction-HTTP-Role-Mechanize">
-  <img alt="CPAN version" height="18"
+  <img alt="CPAN version"
        src="https://badge.fury.io/pl/Mojo-Transaction-HTTP-Role-Mechanize.svg" />
 </a>
 
